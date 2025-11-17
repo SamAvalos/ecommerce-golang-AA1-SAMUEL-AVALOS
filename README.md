@@ -21,8 +21,25 @@ El sistema implementa productos, carrito de compras, órdenes y flujos completos
 
 
 ## Estructura del Proyecto
-
----
+STREAMING SERVICE/
+│── main.go
+│
+│── models/
+│ ├── user.go
+│ ├── product.go
+│ └── cart.go
+│
+│── services/
+│ ├── user_service.go
+│ ├── product_service.go
+│ └── cart_service.go
+│
+│── routes/
+│ ├── user_routes.go
+│ ├── product_routes.go
+│ └── cart_routes.go
+│
+└── go.mod
 
 ## Descripción por Módulos
 
