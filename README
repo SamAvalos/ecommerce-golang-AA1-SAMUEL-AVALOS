@@ -1,0 +1,24 @@
+# 🛒 Ecommerce API — In-Memory Store (Golang)
+
+Una API de comercio electrónico desarrollada en **Go (Golang)** bajo una arquitectura modular clara y extensible.  
+El sistema implementa productos, carrito de compras, órdenes y flujos completos de compra, siguiendo principios modernos de diseño de software y buenas prácticas del lenguaje Go.
+
+---
+
+## 🚀 Características Principales
+
+- Gestión de productos en memoria (sin base de datos).
+- Carrito de compras por usuario.
+- Proceso de checkout con validaciones reales.
+- Registro de órdenes.
+- Arquitectura modular:
+  - `/models`
+  - `/services`
+  - `/routes`
+- API REST completa y documentada.
+- Implementación limpia siguiendo buenas prácticas de Go.
+
+---
+
+## 📂 Estructura del Proyecto
+
