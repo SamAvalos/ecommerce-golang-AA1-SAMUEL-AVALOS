@@ -23,30 +23,55 @@ El sistema implementa productos, carrito de compras, órdenes y flujos completos
 
 ## Estructura del Proyecto
 ecommerce/
+
 ├── main.go
+
 ├── go.mod
+
 ├── models/
+
 │   └── models.go
+
 ├── internal/
+
 │   ├── repository/
+
 │   │   ├── interfaces.go
+
 │   │   └── inmemory.go
+
 │   ├── service/
+
 │   │   ├── product.go
+
 │   │   ├── cart.go
+
 │   │   ├── order.go
+
 │   │   └── checkout.go
+
 │   ├── controller/
+
 │   │   ├── product.go
+
 │   │   ├── cart.go
+
 │   │   ├── order.go
+
 │   │   └── checkout.go
+
 │   ├── middleware/
+
 │   │   └── auth.go
+
 │   └── auth/
+
 │       └── service.go
+
 └── routes/
+
 └── routes.go
+
 ## Descripción por Módulos
 
 ### 1. Models  
