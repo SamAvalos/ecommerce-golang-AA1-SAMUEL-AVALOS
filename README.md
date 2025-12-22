@@ -7,51 +7,46 @@ El sistema implementa productos, carrito de compras, órdenes y flujos completos
 
 ## Características Principales
 
-- Gestión de productos en memoria (sin base de datos).
-- Carrito de compras por usuario.
-- Proceso de checkout con validaciones reales.
-- Registro de órdenes.
-- Arquitectura modular:
-  - `/models`
-  - `/services`
-  - `/routes`
-- API REST completa y documentada.
-- Implementación limpia siguiendo buenas prácticas de Go.
+- **Arquitectura limpia** (Clean Architecture) con separación de capas
+- **Autenticación JWT** (HS256) con middleware protector
+- **Carrito por usuario** (map[string]Cart + RWMutex para concurrencia)
+- **Checkout con reserva de stock** y rollback si falla
+- **Interfaz web completa** (HTML + JS puro) sin necesidad de terminal
+- **Mensaje de sostenibilidad** después de cada compra
+- **Serialización/deserialización 100% con JSON**
+- **Encapsulación estricta** (campos privados, paquetes internal)
+- **Interfaces** para repositorios (fácil migrar a DB)
+- **Manejo de errores profesional** con rollback
+- **Comentarios detallados** en código complejo
 
 
 
 ## Estructura del Proyecto
-│── main.go
-
-│
-│── models/
-
-│ ├── user.go
-
-│ ├── product.go
-
-│ └── cart.go
-
-│
-│── services/
-
-│ ├── user_service.go
-
-│ ├── product_service.go
-
-│ └── cart_service.go
-
-│
-│── routes/
-
-│ ├── user_routes.go
-
-│ ├── product_routes.go
-
-│ └── cart_routes.go
-
-│
-└── go.mod
+ecommerce/
+├── main.go
+├── go.mod
+├── models/
+│   └── models.go
+├── internal/
+│   ├── repository/
+│   │   ├── interfaces.go
+│   │   └── inmemory.go
+│   ├── service/
+│   │   ├── product.go
+│   │   ├── cart.go
+│   │   ├── order.go
+│   │   └── checkout.go
+│   ├── controller/
+│   │   ├── product.go
+│   │   ├── cart.go
+│   │   ├── order.go
+│   │   └── checkout.go
+│   ├── middleware/
+│   │   └── auth.go
+│   └── auth/
+│       └── service.go
+└── routes/
+└── routes.go
 ## Descripción por Módulos
 
 ### 1. Models  
@@ -81,41 +76,25 @@ Y finalmente levanta el servidor en `:8080`.
 
 ---
 
-## Endpoints Disponibles
 
-### Usuarios
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET    | `/api/users` | Listar usuarios |
-| POST   | `/api/users` | Crear usuario |
+## Endpoints API
 
----
+| Método | Ruta                          | Descripción                                   | Auth |
+|--------|-------------------------------|-----------------------------------------------|------|
+| GET    | `/`                           | Página web principal con login y tienda       | No   |
+| GET    | `/api/products`               | Listar productos                              | No   |
+| POST   | `/api/auth/register`          | Registrar usuario                             | No   |
+| POST   | `/api/auth/login`             | Login y obtener JWT                           | No   |
+| GET    | `/api/cart`                   | Ver carrito del usuario                       | Sí   |
+| POST   | `/api/cart`                   | Añadir producto al carrito                    | Sí   |
+| POST   | `/api/checkout`               | Realizar pago y generar orden                 | Sí   |
+| GET    | `/api/orders`                 | Listar órdenes del usuario                    | Sí   |
+| GET    | `/health`                     | Health check                                  | No   |
 
-### Productos
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET    | `/api/products` | Listar productos |
-| POST   | `/api/products` | Crear producto |
-| GET    | `/api/products/{id}` | Obtener producto |
-| DELETE | `/api/products/{id}` | Eliminar producto |
-
----
-
-### Carrito
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET    | `/api/cart/{userID}` | Ver carrito del usuario |
-| POST   | `/api/cart/{userID}` | Agregar producto al carrito |
-
----
-
-## Requisitos
+## Requisitos Técnicos
 
 - Go 1.21 o superior
-- Postman / Thunder Client para pruebas
-- Sistema operativo Windows, Linux o macOS
-
----
+- Dependencias: `github.com/go-chi/chi/v5`, `github.com/golang-jwt/jwt/v5`, `golang.org/x/crypto/bcrypt`
 
 ## Instalación y Ejecución
 
@@ -133,40 +112,14 @@ go run main.go
 Servidor disponible en:
 http://localhost:8080
 
+### Visión del Futuro (2030-2035)
 
-## Ejemplos de Requests
-
-### Crear producto
-POST http://localhost:8080/api/products
-
-Body:
-```json
-{
-  "id": "prod_1",
-  "name": "Camiseta",
-  "price": 25.50
-}
-```
-
-
-### Agregar producto al carrito
-POST http://localhost:8080/api/cart/user_1
-
-### Ver productos
-
-GET http://localhost:8080/api/products
-
-## Extensiones Futuras
-
-- Integración con base de datos real.
-
-- Autenticación JWT.
-
-- Módulo de pagos.
-
-- Dashboard administrativo.
-
-- Sistema de órdenes completo.
+IA personalizada (recomendaciones con Grok/xAI)
+Pagos Web3 (cripto y stablecoins)
+Realidad Aumentada (prueba virtual de ropa)
+Sostenibilidad integrada (compensación CO2 por compra)
+Blockchain (trazabilidad total)
+Edge Computing + WASM (latencia cero)
 
 ## Licencia
 Este proyecto es de libre uso para fines educativos o profesionales. Puedes modificarlo y adaptarlo según tus necesidades.
